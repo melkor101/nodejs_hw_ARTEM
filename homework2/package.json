@@ -1,0 +1,17 @@
+{
+  "name": "homework2",
+  "version": "1.0.0",
+  "description": "Homework #2",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "start": "node main.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Artem Yatsyshyn",
+  "license": "MIT",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "config": "^3.3.12"
+  }
+}
