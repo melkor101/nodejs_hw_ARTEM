@@ -1,0 +1,4 @@
+---
+app:
+  port: APP_PORT
+  hostname: APP_HOSTNAME
