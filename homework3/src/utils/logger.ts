@@ -8,7 +8,6 @@ export default function getLogger(prefix: string) {
     log(message: string) {
       try {
         writeStream.write(`\n[${new Date().toISOString()}]: log on ${prefix} message: ${message}`);
-        writeStream.end();
 
         console.log(`Log: on ${prefix} message: ${message}`);
       } catch (error) {
@@ -18,7 +17,6 @@ export default function getLogger(prefix: string) {
     warn(message: string) {
       try {
         writeStream.write(`\n[${new Date().toISOString()}]: warn on ${prefix} message: ${message}`);
-        writeStream.end();
 
         console.log(`Log: on ${prefix} message: ${message}`);
       } catch (error) {
