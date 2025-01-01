@@ -1,0 +1,7 @@
+---
+app:
+  port: APP_PORT
+  hostname: APP_HOSTNAME
+
+database:
+  url: DATABASE_URL
