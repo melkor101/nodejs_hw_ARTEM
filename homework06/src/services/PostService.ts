@@ -2,12 +2,7 @@ import { Repository } from "typeorm";
 import { Post } from "../models/Post";
 import { appDataSource } from "./appDataSource";
 
-
-export enum StatusEnum {
-  draft = "draft",
-  published = "published",
-  archived = "archived"
-}
+import { StatusEnum } from '../types/enums';
 
 export class PostService {
 
@@ -25,7 +20,7 @@ export class PostService {
 
   // Method to get a post by ID
   async getPostById(id: string) {
-    return this.repository.findOneById(id);
+    return this.repository.find({});
   }
 
   // Method to create a new post
@@ -58,7 +53,7 @@ export class PostService {
     post.authorId = data.authorId || 0;
     post.title = data.title || '';
     post.content = data.content || '';
-    post.status = data.status || '';
+    post.status = data.status;
 
     await this.repository.save(post);
   }
@@ -67,6 +62,23 @@ export class PostService {
   async deletePost(id: string) {
     return this.repository.delete(id);
   }
+
+
+  // Method to get a posts byy user id
+  async getPostsByUserId(id: string) {
+    if (!id) {
+      throw new Error(`id required`)
+    }
+
+    const posts = await this.repository.find({
+      where: {
+        authorId: Number(id),
+      },
+    });
+
+    return posts || []
+  }
 }
+
 
 export const postService = new PostService();

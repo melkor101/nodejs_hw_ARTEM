@@ -10,7 +10,7 @@ export class User {
 
   @Index()
   @Column("text")
-  title: string
+  name: string
 
   @Column("text")
   email: string

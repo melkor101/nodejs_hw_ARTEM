@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, Index, ManyToOne } from "typeorm"
 import { User } from "./User"
+import { StatusEnum } from '../types/enums';
 
 @Entity("posts")
 export class Post {
@@ -16,8 +17,12 @@ export class Post {
   @Column("text")
   content: string
 
-  @Column("text", { nullable: true })
-  status: string
+  @Column({
+    type: "enum",
+    enum: StatusEnum,
+    default: StatusEnum.draft,
+  })
+  status: StatusEnum
 
   @ManyToOne(() => User, (user: User) => user.id)
   users: User[]

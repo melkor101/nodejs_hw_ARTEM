@@ -1,19 +1,20 @@
 import { Router, Request, Response } from "express";
-import { StatusEnum, postService, } from "../services/PostService";
+import { postService, } from "../services/PostService";
 import { body, validationResult } from 'express-validator';
+import { StatusEnum } from '../types/enums';
 
 const postRouter = Router();
 
 // *** VALIDATE CREATE Post 
 export const createPostValidation = [
   body('authorId', 'Invalid field: name required').not().isEmpty(),
-  body('authorId', 'Invalid field: name mast be string').isNumeric(),
+  body('authorId', 'Invalid field: name must be string').isNumeric(),
   body('title', 'Invalid field: title required').not().isEmpty(),
-  body('title', 'Invalid field: title mast be string').isString(),
+  body('title', 'Invalid field: title must be string').isString(),
   body('content', 'Invalid field: content required').not().isEmpty(),
-  body('content', 'Invalid field: content mast be string').isString(),
+  body('content', 'Invalid field: content must be string').isString(),
   body('status', 'Invalid field: status required').not().isEmpty(),
-  body('status', 'Invalid field: status mast be Enum').notEmpty()
+  body('status', 'Invalid field: status must be Enum').notEmpty()
     .isIn([StatusEnum.archived, StatusEnum.draft, StatusEnum.published]),
 ]
 
@@ -59,10 +60,10 @@ postRouter.get("/", async (req: Request, res: Response) => {
 
 // *** VALIDATE UPDATE User 
 export const putPostValidation = [
-  body('authorId', 'Invalid field: name mast be string').optional().isString(),
-  body('title', 'Invalid field: title mast be string').optional().isString(),
-  body('content', 'Invalid field: content mast be string').optional().isString(),
-  body('status', 'Invalid field: status mast be string').optional()
+  body('authorId', 'Invalid field: name must be string').optional().isString(),
+  body('title', 'Invalid field: title must be string').optional().isString(),
+  body('content', 'Invalid field: content must be string').optional().isString(),
+  body('status', 'Invalid field: status must be string').optional()
     .isIn([StatusEnum.archived, StatusEnum.draft, StatusEnum.published]),
 ]
 
@@ -80,6 +81,22 @@ postRouter.put("/:id", putPostValidation, async (req: Request, res: Response) =>
     }
 
     res.status(422).json({ errors: errors.array() })
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+postRouter.get("/user/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    if (!id) {
+      res.status(400).json({ errors: ['id is required'] })
+    }
+
+    const posts = await postService.getPostsByUserId(id);
+
+    res.status(200).json(posts);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
