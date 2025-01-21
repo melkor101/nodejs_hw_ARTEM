@@ -1,6 +1,7 @@
 import { Router, Request, Response } from "express";
 import { userService } from "../services/UserService";
 import { body, validationResult } from "express-validator";
+import { postService } from "../services/PostService";
 
 const userRouter = Router();
 
@@ -84,6 +85,23 @@ userRouter.delete("/:id", async (req: Request, res: Response) => {
   try {
     const message = await userService.deleteUser(id);
     res.json(message);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// *** READ: Get a posts by user ID ***
+userRouter.get("/:user_id/posts", async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  try {
+    if (!id) {
+      res.status(400).json({ errors: ['User id is required'] })
+    }
+
+    const posts = await postService.getPostsByUserId(id);
+
+    res.status(200).json(posts);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

@@ -86,22 +86,6 @@ postRouter.put("/:id", putPostValidation, async (req: Request, res: Response) =>
   }
 });
 
-postRouter.get("/user/:id", async (req: Request, res: Response) => {
-  const { id } = req.params;
-
-  try {
-    if (!id) {
-      res.status(400).json({ errors: ['id is required'] })
-    }
-
-    const posts = await postService.getPostsByUserId(id);
-
-    res.status(200).json(posts);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
 // *** READ: Get a post by ID ***
 postRouter.get("/:id", async (req: Request, res: Response) => {
   const { id } = req.params;

@@ -64,7 +64,7 @@ export class PostService {
   }
 
 
-  // Method to get a posts byy user id
+  // Method to get a posts by user id
   async getPostsByUserId(id: string) {
     if (!id) {
       throw new Error(`id required`)
