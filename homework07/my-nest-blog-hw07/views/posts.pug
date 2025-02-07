@@ -1,0 +1,24 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    meta(name="color-scheme", content="light dark")
+    link(rel="stylesheet", href="css/pico.classless.min.css")
+    title=title
+  body(style="background-color: white")
+    main.container(style="max-width: 600px; min-height: 90vh; margin: 0 auto; background-color: white; padding-left: 25px")
+      h2(style="color: #111111") Posts
+      div(style="flex-direction: row; display: flex; justify-content: space-between; align-items: space-between; padding-top: 20px; padding-bottom: 20px;")
+        a(href='/create-post') New post
+        a(href='/login') Login
+      each post in posts.length ? posts : [{title: 'There are no posts'}]
+        div(style="color: black; border: 1px solid black; padding: 12px; border-radius: 12px; margin-bottom: 6px;" ) 
+          a(style="color: black; margin-bottom: 4px;" href=`/posts/${post.id}`)= post.title
+          h4(style="color: #333333; margin: 0; margin-bottom: 6px;")= post.author.name
+          h4(style="color:rgb(30, 93, 4); margin-bottom: 6px;")= post.status
+          p(style="color: #121212; ")= post.content
+          em(style="color: #cecece; font-size: 12px ")=post.created
+
+
+    include includes/footer.pug
