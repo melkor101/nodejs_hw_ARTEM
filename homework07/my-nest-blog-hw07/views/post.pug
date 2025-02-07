@@ -1,0 +1,35 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    meta(name="color-scheme", content="light dark")
+    link(rel="stylesheet", href="css/pico.classless.min.css")
+    title=title
+  body(style="background-color: white")
+    main.container(style="max-width: 600px; min-height: 90vh; margin: 0 auto; background-color: white; padding-left: 25px")
+      h2(style="color: #111111") 
+      div(style="flex-direction: row; display: flex; justify-content: space-between; align-items: space-between; padding-top: 20px; padding-bottom: 20px;")
+        a(href='/create-post') New post
+        a(href='/login') Login
+      div(style="color: black; border: 1px solid black; padding: 12px; border-radius: 12px; margin-bottom: 6px;" ) 
+        h3(style="color: black; margin-bottom: 4px;" )= post.title
+        h4(style="color: #333333; margin: 0; margin-bottom: 6px;")= post.author.name
+        h4(style="color:rgb(30, 93, 4); margin-bottom: 6px;")= post.status 
+        p(style="color: #121212; ")= post.content
+        em(style="color: #cecece; font-size: 12px ")=post.created
+
+     
+      form(method="post" action="/api/v1/comments" style="flex: 1; flex-direction: column; justify-content: center; align-items: center;")
+        label(style="color: #333333;") Comment
+        input(style="margin-top: 10px; margin-bottom: 4px; height: 40px; background-color: #fefefe; margin-bottom: 25px; color: #333333; width: 100%" name="content", type="text")
+        input(style="display: none" value=post.id  name="postId", type='number' )
+        button(type="submit" style="margin-top: 25px; margin-bottom: 25px; color: #333; width: 100%; color: white") Send
+
+      each comment in post.comments.length ? post.comments : [{mockup: 'There are no comments' }]
+        div 
+          h4(style="color: #323232; text-align: center;")= comment.mockup
+        div(style="color: black; border: 1px solid 111111; padding: 12px; border-radius: 12px; margin-bottom: 6px;" + comment.title ? "display: hidden": '' ) 
+          h3(style="color: black; margin-bottom: 4px;" )= comment.title
+          p(style="color: #121212; ")= comment.content
+    include includes/footer.pug

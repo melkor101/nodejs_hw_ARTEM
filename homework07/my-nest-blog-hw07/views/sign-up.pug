@@ -1,0 +1,41 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    meta(name="color-scheme", content="light dark")
+    link(rel="stylesheet", href="css/pico.classless.min.css")
+    title=title
+  body(style="background-color: white")
+    main.container(style="max-width: 600px; min-height: 90vh; margin: 0 auto; background-color: white; padding-left: 25px")
+      h2 Sign Up User
+      form(method="post" action="/api/v1/users" style="flex: 1; flex-direction: column; justify-content: center; align-items: center; color: #333")
+        label(style="color: #333") Email:
+        br
+
+        input(style="margin-top: 25px; background-color: #fefefe; margin-bottom: 25px; color: #333333; width: 250px" name="email", type="email")
+        br
+
+        label(style="color: #333") Name:
+        br
+
+        input(style="margin-top: 25px; background-color: #fefefe; margin-bottom: 25px; color: #333333; width: 250px" name="name", type="name")
+        br
+
+
+        label(style="color: #333") Password:
+        br
+
+        input(style="margin-top: 25px; background-color: #fefefe;  margin-bottom: 25px; color: #333333; ; width: 250px" name="password", type="password")
+        br
+
+        label(style="color: #333") age:
+        br
+
+        input(style="margin-top: 25px; background-color: #fefefe;  margin-bottom: 25px; color: #333333; ; width: 250px" name="age", type="number")
+        br
+    
+        button(type="submit" style="margin-top: 25px; margin-bottom: 25px; color: #333; width: 250px") Sign Up
+    
+
+    include includes/footer.pug
